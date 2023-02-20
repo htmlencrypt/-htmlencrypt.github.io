@@ -3,7 +3,6 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.108.0">
@@ -15,7 +14,7 @@
 
     
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Favicons -->
 <link rel="apple-touch-icon" href="/icon.png" sizes="180x180">
@@ -77,35 +76,8 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="navbar-static.css" rel="stylesheet">
   </head>
   <body>
-    
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Top navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</nav>
 
 <main class="container">
   <div class="bg-light p-5 rounded">
@@ -147,7 +119,7 @@ This tool uses popup windows for the previews. In some cases the preview window 
 
 
 <center>
-<textarea class="form-control" id="InputArea" name="InputArea" style="width:95%; height:300; padding:5;background-color: black;color: #13FF00;" onchange="FileSizes()" onkeyup="FileSizes()" onmouseup="FileSizes()"></textarea>
+<textarea class="form-control" id="InputArea" rows="10" name="InputArea" style="width:95%; height:300; padding:5;background-color: black;color: #13FF00;" onchange="FileSizes()" onkeyup="FileSizes()" onmouseup="FileSizes()"></textarea>
 <table align="center" width="95%" cellspacing="0" cellpadding="3" border="0">
 <tbody><tr style="font-family:arial, sans serif; font-size:14px">
 <td id="topSize" align="center">0</td>
@@ -162,7 +134,7 @@ This tool uses popup windows for the previews. In some cases the preview window 
 </tr>
 </tbody></table>
 
-<textarea class="form-control" id="OutputArea" name="OutputArea" style="width:95%; height:300; padding:5;background-color: black;color: #13FF00;" onchange="FileSizes()" onkeyup="FileSizes()" onmouseup="FileSizes()"></textarea>
+<textarea rows="10" class="form-control" id="OutputArea" name="OutputArea" style="width:95%; height:300; padding:5;background-color: black;color: #13FF00;" onchange="FileSizes()" onkeyup="FileSizes()" onmouseup="FileSizes()"></textarea>
 </center>
 <center><input type="button" onclick="document.getElementById(&#39;OutputArea&#39;).select();
 	document.getElementById(&#39;OutputArea&#39;).focus();" value=" Select All ">
@@ -172,85 +144,9 @@ This tool uses popup windows for the previews. In some cases the preview window 
 </main>
 
 
-    <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-<script language="javascript">
-<!--
-var quot="'"
-var fullenc=false
-
-function Encrypt() {
- 	if (fullenc) {EncryptAll()} else {EncryptBasic()}
-}
-
-function EncryptBasic(){
-	var NewCode=escape(document.getElementById('InputArea').value)
-	NewCode='<'+'script language=javascript>document.write(unescape('+quot
-		+ NewCode+quot+ '))<'+'/script>\n'
-	document.getElementById('OutputArea').value = NewCode
-	FileSizes()
-}
-
-function EncryptAll() {NewCode=""
-	var OldCode=document.getElementById('InputArea').value
-	for (var i=0; i<OldCode.length; i++){NewCode=NewCode+Hex(OldCode.charCodeAt(i))}
-	NewCode='<'+'script language=javascript>document.write(unescape('+quot
-		+ NewCode+quot+ '))<'+'/script>\n'    	
-	document.getElementById('OutputArea').value = NewCode
-	FileSizes()
-	//--adds linebreak after encoded block.
-	// the added linebreaks prevent preview in interim decoding, 
-	//  but will view in final decoding 
-}
-
-function Decrypt() {
-	var NewCode=unescape(document.getElementById('InputArea').value)
-	NewCode=NewCode.replace("<script language=javascript>document.write(unescape('","")
-	//NewCode=NewCode.replace("\n'))<"+"/script>","")
-	NewCode=NewCode.replace("'))<"+"/script>","")
-	document.getElementById('OutputArea').value = NewCode
-	FileSizes()
-}
-
-function Hex(dec){
-	var hexbase="0123456789ABCDEF"
-	hx_hi=dec/16; hx_lo=dec%16;
-        hx=hexbase.substr(hx_hi,1)+hexbase.substr(hx_lo,1)
-	hexval='%'+hx
-	return hexval;
-}
-
-function FileSizes() {
-	document.getElementById('topSize').innerHTML= 
-	document.getElementById('InputArea').value.length
-	document.getElementById('bottomSize').innerHTML= 
-	document.getElementById('OutputArea').value.length
-
-}
-
-function Preview(selection) {
-	FileSizes()
-	var newpage=""
-	if (selection==0) {newpage=document.getElementById('InputArea').value
-  	  var w0 = window.open("","popup0","width=600,height=350,directories=no,menubar=yes,status=yes,toolbar=yes,resizable=yes,scrollbars=yes,screenY=0,top=0,screenX=80,left=80" );
-    	  w0.document.writeln("<html><title>Top Window Preview</title><body>" );
-  	  w0.document.writeln(newpage);
-  	  w0.document.writeln("<hr><form><center><input type=\"submit\" value=\"Close Window\" onClick=\"window.close();return false; \"></center></form>" );
-  	  w0.document.writeln("</body></html>" );
-  	  w0.document.close() ;
-  	  w0.document.focus(true)
-	}
-	else {selection=1; newpage=document.getElementById('OutputArea').value
-  	  var w1 = window.open("","popup1","width=600,height=350,directories=no,menubar=yes,status=yes,toolbar=yes,resizable=yes,scrollbars=yes,screenY=0,top=0,screenX=80,left=80" );
-  	  w1.document.writeln("<html><title>Bottom Window Preview</title><body>" );
-  	  w1.document.writeln(newpage);
-  	  w1.document.writeln("<hr><form><center><input type=\"submit\" value=\"Close Window\" onClick=\"window.close();return false; \"></center></form>" );
-  	  w1.document.writeln("</body></html>" );
-  	  w1.document.close() ;
-  	  w1.document.focus(true)
-	}
-}
-
--->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+	var quot="'",fullenc=!1;function Encrypt(){fullenc?EncryptAll():EncryptBasic()}function EncryptBasic(){var e=escape(document.getElementById("InputArea").value);e="<script language=javascript>document.write(unescape("+quot+e+quot+"))</script>\n",document.getElementById("OutputArea").value=e,FileSizes()}function EncryptAll(){NewCode="";for(var e=document.getElementById("InputArea").value,t=0;t<e.length;t++)NewCode+=Hex(e.charCodeAt(t));NewCode="<script language=javascript>document.write(unescape("+quot+NewCode+quot+"))</script>\n",document.getElementById("OutputArea").value=NewCode,FileSizes()}function Decrypt(){var e=unescape(document.getElementById("InputArea").value);e=(e=e.replace("<script language=javascript>document.write(unescape('","")).replace("'))</script>",""),document.getElementById("OutputArea").value=e,FileSizes()}function Hex(e){var t="0123456789ABCDEF";return hx_hi=e/16,hx_lo=e%16,hexval="%"+(hx=t.substr(hx_hi,1)+t.substr(hx_lo,1))}function FileSizes(){document.getElementById("topSize").innerHTML=document.getElementById("InputArea").value.length,document.getElementById("bottomSize").innerHTML=document.getElementById("OutputArea").value.length}function Preview(e){FileSizes();var t="";if(0==e){t=document.getElementById("InputArea").value;var n=window.open("","popup0","width=600,height=350,directories=no,menubar=yes,status=yes,toolbar=yes,resizable=yes,scrollbars=yes,screenY=0,top=0,screenX=80,left=80");n.document.writeln("<html><title>Top Window Preview</title><body>"),n.document.writeln(t),n.document.writeln('<hr><form><center><input type="submit" value="Close Window" onClick="window.close();return false; "></center></form>'),n.document.writeln("</body></html>"),n.document.close(),n.document.focus(!0)}else{e=1,t=document.getElementById("OutputArea").value;var r=window.open("","popup1","width=600,height=350,directories=no,menubar=yes,status=yes,toolbar=yes,resizable=yes,scrollbars=yes,screenY=0,top=0,screenX=80,left=80");r.document.writeln("<html><title>Bottom Window Preview</title><body>"),r.document.writeln(t),r.document.writeln('<hr><form><center><input type="submit" value="Close Window" onClick="window.close();return false; "></center></form>'),r.document.writeln("</body></html>"),r.document.close(),r.document.focus(!0)}}
 </script>
       
   </body>
