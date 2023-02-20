@@ -1,90 +1,99 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <title>HTML Encrypter Online</title>
+  <link rel="icon" href="https://sobkiso.xyz/assets/images/logo/logo.png">
+  <meta name="description" content="Encrypt HTML using simple javascipt functions. HTML Code Encryption and Decryption tool. HTML Encrypt Hide all your HTML source code. Protect your HTML-code.">
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.108.0">
-    <title>Top navbar example · Bootstrap v5.3</title>
+<script language="javascript">
+<!--
+var quot="'"
+var fullenc=false
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/navbar-static/">
+function Encrypt() {
+ 	if (fullenc) {EncryptAll()} else {EncryptBasic()}
+}
 
-    
+function EncryptBasic(){
+	var NewCode=escape(document.getElementById('InputArea').value)
+	NewCode='<'+'script language=javascript>document.write(unescape('+quot
+		+ NewCode+quot+ '))<'+'/script>\n'
+	document.getElementById('OutputArea').value = NewCode
+	FileSizes()
+}
 
-    
+function EncryptAll() {NewCode=""
+	var OldCode=document.getElementById('InputArea').value
+	for (var i=0; i<OldCode.length; i++){NewCode=NewCode+Hex(OldCode.charCodeAt(i))}
+	NewCode='<'+'script language=javascript>document.write(unescape('+quot
+		+ NewCode+quot+ '))<'+'/script>\n'    	
+	document.getElementById('OutputArea').value = NewCode
+	FileSizes()
+	//--adds linebreak after encoded block.
+	// the added linebreaks prevent preview in interim decoding, 
+	//  but will view in final decoding 
+}
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+function Decrypt() {
+	var NewCode=unescape(document.getElementById('InputArea').value)
+	NewCode=NewCode.replace("<script language=javascript>document.write(unescape('","")
+	//NewCode=NewCode.replace("\n'))<"+"/script>","")
+	NewCode=NewCode.replace("'))<"+"/script>","")
+	document.getElementById('OutputArea').value = NewCode
+	FileSizes()
+}
 
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="/icon.png" sizes="180x180">
-<meta name="theme-color" content="#712cf9">
+function Hex(dec){
+	var hexbase="0123456789ABCDEF"
+	hx_hi=dec/16; hx_lo=dec%16;
+        hx=hexbase.substr(hx_hi,1)+hexbase.substr(hx_lo,1)
+	hexval='%'+hx
+	return hexval;
+}
+
+function FileSizes() {
+	document.getElementById('topSize').innerHTML= 
+	document.getElementById('InputArea').value.length
+	document.getElementById('bottomSize').innerHTML= 
+	document.getElementById('OutputArea').value.length
+
+}
+
+function Preview(selection) {
+	FileSizes()
+	var newpage=""
+	if (selection==0) {newpage=document.getElementById('InputArea').value
+  	  var w0 = window.open("","popup0","width=600,height=350,directories=no,menubar=yes,status=yes,toolbar=yes,resizable=yes,scrollbars=yes,screenY=0,top=0,screenX=80,left=80" );
+    	  w0.document.writeln("<html><title>Top Window Preview</title><body>" );
+  	  w0.document.writeln(newpage);
+  	  w0.document.writeln("<hr><form><center><input type=\"submit\" value=\"Close Window\" onClick=\"window.close();return false; \"></center></form>" );
+  	  w0.document.writeln("</body></html>" );
+  	  w0.document.close() ;
+  	  w0.document.focus(true)
+	}
+	else {selection=1; newpage=document.getElementById('OutputArea').value
+  	  var w1 = window.open("","popup1","width=600,height=350,directories=no,menubar=yes,status=yes,toolbar=yes,resizable=yes,scrollbars=yes,screenY=0,top=0,screenX=80,left=80" );
+  	  w1.document.writeln("<html><title>Bottom Window Preview</title><body>" );
+  	  w1.document.writeln(newpage);
+  	  w1.document.writeln("<hr><form><center><input type=\"submit\" value=\"Close Window\" onClick=\"window.close();return false; \"></center></form>" );
+  	  w1.document.writeln("</body></html>" );
+  	  w1.document.close() ;
+  	  w1.document.focus(true)
+	}
+}
+
+-->
+</script>
+</head>
+
+<body style="font-family:arial, sans-serif" text="#000000" bgcolor="ss">
 
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+<hr>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
 
-      .b-example-divider {
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
-
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-    </style>
-
-    
-    <!-- Custom styles for this template -->
-  </head>
-  <body>
-
-<main class="container">
-  <div class="bg-light p-5 rounded">
-    <h1>HTML Encryptor/Decryptor</h1>
-    <center>
+   <center><h1>
+    <font color="#3AFF00"><b>HTML Encryptor/Decryptor</b></font></h1>
 	<h3>
-    <font color="#FF0000"><b>[&#128520;] Copyright � git/AjRaj [&#128520;]</b></font></h3><br>
+    <font color="#FF0000"><b>[&#128520;] Copyright � @Cyberassemble [&#128520;]</b></font></h3><br>
   <font color="#FF0000"><b>>>>> SECURE YOUR SPAMMING LETTERS AND SCAMPAGES <<<<</b></font></h3>
    </center>
 <table align="center" width="95%" cellspacing="0" cellpadding="0" border="0">
@@ -119,7 +128,7 @@ This tool uses popup windows for the previews. In some cases the preview window 
 
 
 <center>
-<textarea class="form-control" id="InputArea" rows="10" name="InputArea" style="width:95%; height:300; padding:5;background-color: black;color: #13FF00;" onchange="FileSizes()" onkeyup="FileSizes()" onmouseup="FileSizes()"></textarea>
+<textarea id="InputArea" name="InputArea" style="width:95%; height:300; padding:5;background-color: black;color: #13FF00;" onchange="FileSizes()" onkeyup="FileSizes()" onmouseup="FileSizes()"></textarea>
 <table align="center" width="95%" cellspacing="0" cellpadding="3" border="0">
 <tbody><tr style="font-family:arial, sans serif; font-size:14px">
 <td id="topSize" align="center">0</td>
@@ -134,20 +143,26 @@ This tool uses popup windows for the previews. In some cases the preview window 
 </tr>
 </tbody></table>
 
-<textarea rows="10" class="form-control" id="OutputArea" name="OutputArea" style="width:95%; height:300; padding:5;background-color: black;color: #13FF00;" onchange="FileSizes()" onkeyup="FileSizes()" onmouseup="FileSizes()"></textarea>
+<textarea id="OutputArea" name="OutputArea" style="width:95%; height:300; padding:5;background-color: black;color: #13FF00;" onchange="FileSizes()" onkeyup="FileSizes()" onmouseup="FileSizes()"></textarea>
 </center>
 <center><input type="button" onclick="document.getElementById(&#39;OutputArea&#39;).select();
 	document.getElementById(&#39;OutputArea&#39;).focus();" value=" Select All ">
 </center>
+<br>
+
+
+<br>
+
+
+<br>
+
+
+
+
 </p>
-  </div>
-</main>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-	var quot="'",fullenc=!1;function Encrypt(){fullenc?EncryptAll():EncryptBasic()}function EncryptBasic(){var e=escape(document.getElementById("InputArea").value);e="<script language=javascript>document.write(unescape("+quot+e+quot+"))</script>\n",document.getElementById("OutputArea").value=e,FileSizes()}function EncryptAll(){NewCode="";for(var e=document.getElementById("InputArea").value,t=0;t<e.length;t++)NewCode+=Hex(e.charCodeAt(t));NewCode="<script language=javascript>document.write(unescape("+quot+NewCode+quot+"))</script>\n",document.getElementById("OutputArea").value=NewCode,FileSizes()}function Decrypt(){var e=unescape(document.getElementById("InputArea").value);e=(e=e.replace("<script language=javascript>document.write(unescape('","")).replace("'))</script>",""),document.getElementById("OutputArea").value=e,FileSizes()}function Hex(e){var t="0123456789ABCDEF";return hx_hi=e/16,hx_lo=e%16,hexval="%"+(hx=t.substr(hx_hi,1)+t.substr(hx_lo,1))}function FileSizes(){document.getElementById("topSize").innerHTML=document.getElementById("InputArea").value.length,document.getElementById("bottomSize").innerHTML=document.getElementById("OutputArea").value.length}function Preview(e){FileSizes();var t="";if(0==e){t=document.getElementById("InputArea").value;var n=window.open("","popup0","width=600,height=350,directories=no,menubar=yes,status=yes,toolbar=yes,resizable=yes,scrollbars=yes,screenY=0,top=0,screenX=80,left=80");n.document.writeln("<html><title>Top Window Preview</title><body>"),n.document.writeln(t),n.document.writeln('<hr><form><center><input type="submit" value="Close Window" onClick="window.close();return false; "></center></form>'),n.document.writeln("</body></html>"),n.document.close(),n.document.focus(!0)}else{e=1,t=document.getElementById("OutputArea").value;var r=window.open("","popup1","width=600,height=350,directories=no,menubar=yes,status=yes,toolbar=yes,resizable=yes,scrollbars=yes,screenY=0,top=0,screenX=80,left=80");r.document.writeln("<html><title>Bottom Window Preview</title><body>"),r.document.writeln(t),r.document.writeln('<hr><form><center><input type="submit" value="Close Window" onClick="window.close();return false; "></center></form>'),r.document.writeln("</body></html>"),r.document.close(),r.document.focus(!0)}}
-</script>
-      
-  </body>
-</html>
+
+
+
+</body></html>
